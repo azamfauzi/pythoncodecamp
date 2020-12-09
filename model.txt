@@ -1,0 +1,40 @@
+<?php
+class $Model_model extends CI_Model{
+    function show$import($arr){
+        $this->db->select('$tablename.*');
+        $this->db->from('$tablename');
+        foreach($arr as $key=>$val){
+            $this->db->where($key,$val);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+    function delete$import($arr){
+        foreach($arr as $key=>$val){
+            $this->db->where('$primarykey', $$primarykey);
+            $this->db->delete('$tablename');
+        }
+    }
+    function insert$import($arr){
+        $query = $this->db->insert('$tablename',$arr);
+        $id = $this->db->insert_id();        
+        return $id;    
+    }
+    function update$import($arr){
+        $this->db->where('$primarykey',$arr['$primarykey']);
+        $this->db->update('$tablename',$arr);
+        return $arr['$primarykey'];
+    }
+    function edit$import($arr){
+        $this->db->select('$tablename.*');
+        $this->db->from('$tablename');
+        if(!empty($arr)){
+            foreach($arr as $key=>$val){
+                $this->db->where($key,$val);
+            }
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+}
+?>

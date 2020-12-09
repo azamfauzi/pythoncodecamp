@@ -1,0 +1,68 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class $ControllerName extends CI_Controller {
+  
+	function index(){
+		//$arrSess = $this->auth->get_session();
+		//$arrSess['iduser'] = $arrSess['userid'];
+		$data1['menu'] = 'job';
+		$this->load->view('header',$data1);
+		$this->load->view('sidebar',$arrSess);
+		$data['title'] = 'Create New User';
+		$this->load->view('footer');
+	}
+	function create($id=0){
+		$data1['menu'] = 'job';
+		if($id > 0){
+			$data['title'] = 'Edit $title';
+		}else{
+			$data['title'] = 'Create $title';
+		}		
+		if($id > 0){
+			$this->load->model('$model_model','$model');
+			$data['row'] = $this->$model->show$model($mod)->row();
+			$this->load->model('global_model','global');
+			if($this->global->is_exist('jobreport','client_id',$id) == true){
+				$data['disablezone'] = 'Y';
+			}
+		}		
+		$data['content'] = '$classcreate';
+		$this->load->view('layout',$data);
+		
+	}
+	function save(){
+		$data1['menu'] = 'job';	
+		$this->load->model('$model_model','$model');
+		$data['title'] = 'Update Record';		
+        $data['content'] = '$classcreate';      
+          
+        if(isset($arr['$primarykey']) && $arr['$primarykey'] > 0){            
+            $this->$model->update$model($arr);
+        }else{
+            $this->$model->insert$model($arr);
+        }
+		redirect('/$class/view/', 'refresh');		
+	
+	}
+	function view(){		
+		$data1['menu'] = 'job';		
+		$data['title'] = '$class List';
+		$this->load->model('$Model_model','$model');
+        $data['query'] = $this->model->show$model();
+		$data['content'] = '$classlist';
+        $this->load->view('layout',$data);
+        
+	}
+	function delete($id){
+
+        $this->load->model('$model_model','$model');
+		$this->load->model('global_model','global');
+		$this->$model->delete$model(array('$primarykey'=>$id));        
+		redirect('/$class/create/', 'refresh');
+
+	}
+	
+	
+}
+?>
